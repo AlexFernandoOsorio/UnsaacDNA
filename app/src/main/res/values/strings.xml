@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">UnsaacDNA</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Inicio_spinner">Elija opción</string>
+    <string name="opcion1">Complementario</string>
+    <string name="opcion2">Reverso</string>
+</resources>

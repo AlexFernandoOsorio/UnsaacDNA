@@ -1,0 +1,45 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyButton1" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">#ffeb3b</item>
+        <item name="colorControlHighlight">#fff9c4</item>
+        <item name="editTextColor">@color/colorblank</item>
+    </style>
+    <style name="MyButton2" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">#4caf50</item>
+        <item name="colorControlHighlight">#c8e6c9</item>
+        <item name="editTextColor">@color/colorblank</item>
+    </style>
+    <style name="MyButton3" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">#00bcd4</item>
+        <item name="colorControlHighlight">#b2ebf2</item>
+        <item name="editTextColor">@color/colorblank</item>
+    </style>
+    <style name="MyButton4" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">#f44336</item>
+        <item name="colorControlHighlight">#ffcdd2</item>
+        <item name="editTextColor">@color/colorblank</item>
+    </style>
+    <style name="MyButton5" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#37474f</item>
+        <item name="colorButtonNormal">#263238</item>
+        <item name="editTextColor">@color/colorblank</item>
+    </style>
+</resources>
