@@ -11,4 +11,9 @@
     <string name="Inicio_spinner">Elija opción</string>
     <string name="opcion1">Complementario</string>
     <string name="opcion2">Reverso</string>
+    <string name="opcion3">Reverso Complementario</string>
+    <string name="opcion4">ARN-transcripción</string>
+    <string name="texto1">▲3´</string>
+    <string name="texto2">▼5´</string>
+    <string name="texto3">Lista de Aminos</string>
 </resources>
