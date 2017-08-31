@@ -1,5 +1,6 @@
 package com.example.fernando.unsaacdna;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -11,7 +12,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -43,6 +46,13 @@ public class DNAMain2 extends AppCompatActivity {
     private List<String> cadenatemporal;
     private List<String> cadenaamino;
 
+    private ArrayList<Aminos> listamino;
+    private AdaptadorAminos adaptadorAminos;
+    private ArrayList<Aminos> listamino2;
+    private AdaptadorAminos adaptadorAminos2;
+    private ArrayList<Aminos> listamino3;
+    private AdaptadorAminos2 adaptadorAminos3;
+
     private TextView texto;
     int idSpinner;
 
@@ -68,11 +78,13 @@ public class DNAMain2 extends AppCompatActivity {
         butA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cadena.add("A");
-                adapter.notifyDataSetChanged();
+                Aminos amino = new Aminos("A");
+                listamino.add(amino);
                 opcionspinner(idSpinner);
-                arrayAdaptertemp.notifyDataSetChanged();
-                adapteramino.notifyDataSetChanged();
+                adaptadorAminos.notifyDataSetChanged();
+                adaptadorAminos2.notifyDataSetChanged();
+                adaptadorAminos3.notifyDataSetChanged();
+
             }
         });
 
@@ -80,11 +92,13 @@ public class DNAMain2 extends AppCompatActivity {
         butT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cadena.add("T");
-                adapter.notifyDataSetChanged();
+                Aminos amino = new Aminos("T");
+                listamino.add(amino);
                 opcionspinner(idSpinner);
-                arrayAdaptertemp.notifyDataSetChanged();
-                adapteramino.notifyDataSetChanged();
+                adaptadorAminos.notifyDataSetChanged();
+                adaptadorAminos2.notifyDataSetChanged();
+                adaptadorAminos3.notifyDataSetChanged();
+
             }
         });
 
@@ -92,11 +106,12 @@ public class DNAMain2 extends AppCompatActivity {
         butG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cadena.add("G");
-                adapter.notifyDataSetChanged();
+                Aminos amino = new Aminos("G");
+                listamino.add(amino);
                 opcionspinner(idSpinner);
-                arrayAdaptertemp.notifyDataSetChanged();
-                adapteramino.notifyDataSetChanged();
+                adaptadorAminos.notifyDataSetChanged();
+                adaptadorAminos2.notifyDataSetChanged();
+                adaptadorAminos3.notifyDataSetChanged();
             }
         });
 
@@ -104,11 +119,12 @@ public class DNAMain2 extends AppCompatActivity {
         butC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cadena.add("C");
-                adapter.notifyDataSetChanged();
+                Aminos amino = new Aminos("C");
+                listamino.add(amino);
                 opcionspinner(idSpinner);
-                arrayAdaptertemp.notifyDataSetChanged();
-                adapteramino.notifyDataSetChanged();
+                adaptadorAminos.notifyDataSetChanged();
+                adaptadorAminos2.notifyDataSetChanged();
+                adaptadorAminos3.notifyDataSetChanged();
             }
         });
 
@@ -116,12 +132,12 @@ public class DNAMain2 extends AppCompatActivity {
         butDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cadena.size() > 0 && cadenatemporal.size()>0) {
-                    cadena.remove(cadena.size() - 1);
-                    cadenatemporal.remove(cadenatemporal.size() - 1);
-                    adapter.notifyDataSetChanged();
-                    arrayAdaptertemp.notifyDataSetChanged();
-                    adapteramino.notifyDataSetChanged();
+                if (listamino.size() > 0 && listamino2.size()>0) {
+                    listamino.remove(listamino.size() - 1);
+                    listamino2.remove(listamino2.size() - 1);
+                    adaptadorAminos.notifyDataSetChanged();
+                    adaptadorAminos2.notifyDataSetChanged();
+                    adaptadorAminos3.notifyDataSetChanged();
 
                 }
 
@@ -129,24 +145,20 @@ public class DNAMain2 extends AppCompatActivity {
         });
 
 
-        spinner.setItems(getString(R.string.opcion1), getString(R.string.opcion2),getString(R.string.opcion3),getString(R.string.opcion4));
+        spinner.setItems(getString(R.string.opcion1), getString(R.string.opcion2),getString(R.string.opcion4));
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 idSpinner = position;
                 Snackbar.make(view, "Seleccionó: " + item,
                         Snackbar.LENGTH_LONG).show();
                 opcionspinner(idSpinner);
-                if (idSpinner!=3)
+                if (idSpinner!=2)
                 {
-                    cadenaamino.clear();
+                    listamino3.clear();
                 }
-                if (idSpinner==1||idSpinner==2)
-                {
-                    texto.setText("");
-                }
-                adapter.notifyDataSetChanged();
-                arrayAdaptertemp.notifyDataSetChanged();
-                adapteramino.notifyDataSetChanged();
+                adaptadorAminos.notifyDataSetChanged();
+                adaptadorAminos2.notifyDataSetChanged();
+                adaptadorAminos3.notifyDataSetChanged();
             }
         });
 
@@ -161,15 +173,19 @@ public class DNAMain2 extends AppCompatActivity {
     }
 
     private void initVars() {
-        cadena = new ArrayList<>();
-        adapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, cadena);
-        lista1.setAdapter(adapter);
-        cadenatemporal=new ArrayList<>();
-        arrayAdaptertemp = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, cadenatemporal);
-        lista2.setAdapter(arrayAdaptertemp);
-        cadenaamino=new ArrayList<>();
-        adapteramino = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, cadenaamino);
-        lista3.setAdapter(adapteramino);
+
+        listamino= new ArrayList<Aminos>();
+        adaptadorAminos=new AdaptadorAminos(this,listamino);
+        lista1.setAdapter(adaptadorAminos);
+
+        listamino2= new ArrayList<Aminos>();
+        adaptadorAminos2=new AdaptadorAminos(this,listamino2);
+        lista2.setAdapter(adaptadorAminos2);
+
+        listamino3= new ArrayList<Aminos>();
+        adaptadorAminos3=new AdaptadorAminos2(this,listamino3);
+        lista3.setAdapter(adaptadorAminos3);
+
     }
     public void opcionspinner(int spin)
     {
@@ -181,9 +197,6 @@ public class DNAMain2 extends AppCompatActivity {
                 getReverse();
                 break;
             case 2:
-                getReverseComplementary();
-                break;
-            case 3:
                 getComplementary();
                 getARNtrans();
                 break;
@@ -191,86 +204,70 @@ public class DNAMain2 extends AppCompatActivity {
     }
     public void getComplementary()
     {
-        cadenatemporal.clear();
-        for (int i=0;i<cadena.size();i++)
+        listamino2.clear();
+        for (int i=0;i<listamino.size();i++)
         {
-            switch (cadena.get(i)){
+            Aminos amino;
+            switch (listamino.get(i).getBase()){
                 case "A":
-                    cadenatemporal.add("T");
+                    amino = new Aminos("T");
+                    listamino2.add(amino);
                     break;
                 case "C":
-                    cadenatemporal.add("G");
+                    amino = new Aminos("G");
+                    listamino2.add(amino);
                     break;
                 case "G":
-                    cadenatemporal.add("C");
+                    amino = new Aminos("C");
+                    listamino2.add(amino);
                     break;
                 case "T":
-                    cadenatemporal.add("A");
+                    amino = new Aminos("A");
+                    listamino2.add(amino);
                     break;
             }
         }
     }
     public  void getReverse()
     {
-        cadenatemporal.clear();
-        for (int i=0;i<cadena.size();i++)
+        listamino2.clear();
+        for (int i=0;i<listamino.size();i++)
         {
-            switch (cadena.get(i)){
+            switch (listamino.get(i).getBase()){
                 case "A":
-                    cadenatemporal.add("T");
+                    listamino2.add(new Aminos("T"));
                     break;
                 case "C":
-                    cadenatemporal.add("G");
+                    listamino2.add(new Aminos("G"));
                     break;
                 case "G":
-                    cadenatemporal.add("C");
+                    listamino2.add(new Aminos("C"));
                     break;
                 case "T":
-                    cadenatemporal.add("A");
+                    listamino2.add(new Aminos("A"));
                     break;
             }
         }
-        Collections.reverse(cadenatemporal);
-    }
-    public  void getReverseComplementary()
-    {
-        getReverse();
-        for (int i=0;i<cadenatemporal.size();i++)
-        {
-            switch (cadenatemporal.get(i)){
-                case "A":
-                    cadenatemporal.set(i,"T");
-                    break;
-                case "C":
-                    cadenatemporal.set(i,"G");
-                    break;
-                case "G":
-                    cadenatemporal.set(i,"C");
-                    break;
-                case "T":
-                    cadenatemporal.set(i,"A");
-                    break;
-            }
-        }
+        Collections.reverse(listamino2);
     }
     public void getARNtrans()
     {
-        cadenaamino.clear();
-        for (int i=0;i<cadenatemporal.size();i++)
+        listamino3.clear();
+        String A="";
+        for (int i=0;i<listamino2.size();i++)
         {
-            switch (cadenatemporal.get(i)){
+            switch (listamino2.get(i).getBase()){
                 case "T":
-                    cadenatemporal.set(i,"U");
+                    listamino2.set(i,new Aminos("U"));
                     break;
             }
+            A=A+listamino2.get(i).getBase();
         }
-        String joined = TextUtils.join("", cadenatemporal);
         String t;
-
-        for (int i=0;i<joined.length();i++){
+        for (int i=0;i<A.length();i++){
             if ((i+1)%3==0){
-                t=joined.substring(i-2,i+1);
-                cadenaamino.add(getBaseamino(t));
+                t=A.substring(i-2,i+1);
+                listamino3.add(new Aminos(getBaseamino(t)));
             }
         }
     }
@@ -488,10 +485,55 @@ public class DNAMain2 extends AppCompatActivity {
             case "UAG":
                 b="Codon Inicial";
                 break;
+            case "UAA":
+                b="Codon Terminal";
+                break;
             default:
                 b="No identificado";
                 break;
         }
         return b;
+    }
+    public class AdaptadorAminos extends ArrayAdapter<Aminos> {
+
+        public AdaptadorAminos(Context context, ArrayList<Aminos> datos) {
+            super(context, 0, datos);
+        }
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Get the data item for this position
+            Aminos user = getItem(position);
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.listitem_amino, parent, false);
+            }
+            //
+            TextView lblTitulo = (TextView)convertView.findViewById(R.id.LblBase);
+            lblTitulo.setText(user.getBase());
+            TextView lblSubtitulo = (TextView)convertView.findViewById(R.id.LblIndex);
+            lblSubtitulo.setText(String.valueOf(position+1));
+
+            return(convertView);
+        }
+    }
+    public class AdaptadorAminos2 extends ArrayAdapter<Aminos> {
+
+        public AdaptadorAminos2(Context context, ArrayList<Aminos> datos) {
+            super(context, 0, datos);
+        }
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Get the data item for this position
+            Aminos user = getItem(position);
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.listitem_amino, parent, false);
+            }
+            //
+            TextView lblTitulo = (TextView)convertView.findViewById(R.id.LblBase);
+            lblTitulo.setText(user.getBase());
+            TextView lblSubtitulo = (TextView)convertView.findViewById(R.id.LblIndex);
+            lblSubtitulo.setText(""+(position+1)*3);
+
+            return(convertView);
+        }
     }
 }
